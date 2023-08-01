@@ -7,7 +7,7 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Brian Llinás Marimón @ GRA"
+title                    : "Brian Llinás Marimón @ VMASC"
 title_separator          : "-"
 name                     : &name "Brian J. Llinás Marimón"
 description              : &description "Ph.D. Student of Computer Science"
@@ -84,7 +84,8 @@ author:
   avatar           : "profile.png"
   bio              : "Ph.D. Student of Computer Science"
   location         : "Norfolk, VA"
-  employer         :
+  employer         : "Virginia Modeling, Analysis and Simulation Center"
+  employeruri      : "https://vmasc.org/" 
   pubmed           : 
   googlescholar    : "https://scholar.google.com/citations?hl=en&user=nE29OcUAAAAJ"
   email            : "bllin001@odu.edu"
