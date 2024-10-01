@@ -7,9 +7,9 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Brian Llinás Marimón @ VMASC"
+title                    : "Brian Llinás @ ODU"
 title_separator          : "-"
-name                     : &name "Brian J. Llinás Marimón"
+name                     : &name "Brian Llinás"
 description              : &description "Ph.D. Student of Computer Science"
 url                      : https://bllin001.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
@@ -84,12 +84,12 @@ author:
   avatar           : "profile.png"
   bio              : "Ph.D. Student of Computer Science"
   location         : "Norfolk, VA"
-  employer         : "Virginia Modeling, Analysis and Simulation Center"
+  employer         : "Old Dominion University"
   employeruri      : "https://vmasc.org/" 
   pubmed           : 
   googlescholar    : "https://scholar.google.com/citations?hl=en&user=nE29OcUAAAAJ"
   email            : "bllin001@odu.edu"
-  researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
+  researchgate     : "https://www.researchgate.net/profile/Brian-Llinas-Marimon"
   uri              :
   bitbucket        :
   codepen          :
