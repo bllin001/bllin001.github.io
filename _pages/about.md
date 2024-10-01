@@ -60,7 +60,35 @@ In my role as a **Data Scientist**, I have worked on extracting and analyzing la
 
 ## 📚 **Research Focus**
 - **Affiliation 1:** WS-DL Group, ODU (Supervisor: Dr. Michael Nelson)
+  <div align="center">
+  <a href="https://oduwsdl.github.io/" target="_blank" class="btn btn--mcw"><i class="fas fa-fw fa-link"></i><span> WS-DL Webpage</span></a>
+  <a href="https://twitter.com/WebSciDL" target="_blank" class="btn btn--mcw"><i class="fab fa-twitter" style="color: {{ page.twitter_color }}"></i><span> WS-DL Twitter</span></a>
+  <a href="https://ws-dl.blogspot.com/" target="_blank" class="btn btn--mcw"><i class="fab fa-blogger" style="color: {{ page.blogger_color }}"></i><span> WS-DL Blog</span></a>
+  <a href="https://github.com/oduwsdl" target="_blank" class="btn btn--mcw"><i class="fab fa-fw fa-github" style="color: {{ page.github_color }}"></i><span> WS-DL GitHub</span></a>
+  </div>
+  {: style="text-align: center;"}
+
+  {% for post in site.publications reversed %}
+    {% if post.type == "recent" %}
+      {% include archive-single.html %}
+    {% endif %}
+  {% endfor %}
+
+
 - **Affiliation 2:** Storymodelers Lab, VMASC (Supervisors: Dr. Jose Padilla & Dr. Erika Frydenlund)
+  <div align="center">
+  <a href="https://www.storymodelers.org" target="_blank" class="btn btn--mcw"><i class="fas fa-fw fa-link"></i><span> Storymodelers Webpage</span></a>
+  <a href="https://x.com/storymodelers" target="_blank" class="btn btn--mcw"><i class="fab fa-twitter" style="color: {{ page.twitter_color }}"></i><span> Storymodelers Twitter</span></a>
+  <a href="https://www.storymodelers.org/blog" target="_blank" class="btn btn--mcw"><i class="fab fa-wix" style="color: {{ page.wix_color }}"></i><span> Storymodelers Blog</span></a>
+  <a href="https://github.com/ODU-Storymodelers" target="_blank" class="btn btn--mcw"><i class="fab fa-fw fa-github" style="color: {{ page.github_color }}"></i><span> Storymodelers GitHub</span></a>
+  </div>
+  {: style="text-align: center;"}
+
+  {% for post in site.publications reversed %}
+    {% if post.type == "recent" %}
+      {% include archive-single.html %}
+    {% endif %}
+  {% endfor %}
 
 ### Areas of Interest:
 - **Large Language Models (LLMs)**
