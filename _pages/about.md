@@ -20,20 +20,32 @@ blogger-color: "#F37100"
 
 <img src="/images/github-header-image.png" width="100%"/>
 
-[![Google Scholar](https://img.shields.io/badge/Google%20Scholar-4285F4?style=for-the-badge&logo=google-scholar&logoColor=white)](https://scholar.google.es/citations?user=nE29OcUAAAAJ&hl=en) 
-[![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/bllin001) 
-[![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/brian-jesus-llinas-marimon/) 
-[![X](https://img.shields.io/badge/X-%23000000.svg?style=for-the-badge&logo=X&logoColor=white)](https://twitter.com/bllin001) 
-[![ResearchGate](https://img.shields.io/badge/ResearchGate-00CCBB?style=for-the-badge&logo=ResearchGate&logoColor=white)](https://www.researchgate.net/profile/Brian-Llinas-Marimon) 
-[![Medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)](http://www.medium.com/@bllin001) 
-[![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white)](http://www.instagram.com/br_llinas)
+<a href="https://scholar.google.es/citations?user=nE29OcUAAAAJ&hl=en">
+  <img src="https://img.shields.io/badge/Google%20Scholar-4285F4?style=for-the-badge&logo=google-scholar&logoColor=white" alt="Google Scholar">
+</a>
+<a href="https://github.com/bllin001">
+  <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
+</a>
+<a href="https://www.linkedin.com/in/brian-jesus-llinas-marimon/">
+  <img src="https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn">
+</a>
+<a href="https://twitter.com/bllin001">
+  <img src="https://img.shields.io/badge/X-%23000000.svg?style=for-the-badge&logo=X&logoColor=white" alt="X">
+</a>
+<a href="https://www.researchgate.net/profile/Brian-Llinas-Marimon">
+  <img src="https://img.shields.io/badge/ResearchGate-00CCBB?style=for-the-badge&logo=ResearchGate&logoColor=white" alt="ResearchGate">
+</a>
+<a href="http://www.medium.com/@bllin001">
+  <img src="https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white" alt="Medium">
+</a>
+<a href="http://www.instagram.com/br_llinas">
+  <img src="https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white" alt="Instagram">
+</a>
 
 </div>
 
 ---------------------------
 
-
-## About me 😀
 Hello! My name is **Brian Llinás**, and I am currently a Ph.D. student in the **Web Science and Digital Libraries (WS-DL) research group** at **Old Dominion University** (ODU), started in Spring 2023. I am under the supervision of **Dr. Michael Nelson** and have a background in **Industrial Engineering** from **Universidad del Norte**, Barranquilla, Colombia.
 
 Over the past years, I have been involved in research projects focused on:
