@@ -80,12 +80,12 @@ analytics:
 
 # Site Author
 author:
-  name             : "Brian J. Llinás Marimón"
+  name             : "Brian Llinás"
   avatar           : "profile.png"
   bio              : "Ph.D. Student of Computer Science"
   location         : "Norfolk, VA"
   employer         : "Old Dominion University"
-  employeruri      : "https://vmasc.org/" 
+  employeruri      : "https://www.odu.edu/" 
   pubmed           : 
   googlescholar    : "https://scholar.google.com/citations?hl=en&user=nE29OcUAAAAJ"
   email            : "bllin001@odu.edu"
@@ -100,7 +100,7 @@ author:
   github           : "bllin001"
   google_plus      :
   keybase          :
-  instagram        :
+  instagram        : "https://www.instagram.com/br_llinas/"
   impactstory      : #"https://profiles.impactstory.org/u/xxxx-xxxx-xxxx-xxxx"
   lastfm           :
   linkedin         : "brian-jesus-llinas-marimon"
