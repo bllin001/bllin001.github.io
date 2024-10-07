@@ -154,39 +154,60 @@ redirect_from:
   .timeline-item {
     position: relative;
     margin: 30px 0;
-    display: block;
+    display: flex;
+    align-items: center;
   }
   .timeline-icon {
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background-color: #333;
-    margin: 0 auto;
+    margin-right: 20px;
+    transition: transform 0.3s ease;
+  }
+  .timeline-icon:hover {
+    transform: scale(1.5);
   }
   .semester-label {
-    text-align: center;
-    margin-top: 10px;
+    font-weight: bold;
+    font-size: 1.4em;
+    color: #333;
+    flex-shrink: 0;
+    width: 100px;
+    margin-right: 20px;
   }
   .timeline-content {
     background-color: #fff;
-    padding: 15px;
+    padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    margin: 20px auto;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    flex-grow: 1;
     border-left: 6px solid #3498db;
+    transition: background-color 0.3s ease;
   }
-  h4 {
-    margin-top: 0;
-    font-size: 1.2em;
+  .timeline-content:hover {
+    background-color: #f0f0f0;
   }
-  .connector-line {
-    position: absolute;
-    width: 3px;
-    background-color: #d3d3d3;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    z-index: -1;
+ .connector-line {
+  position: absolute;
+  width: 3px;
+  background-color: #d3d3d3;
+  top: calc(40px + 20px); /* Adjust to start from the first dot */
+  bottom: calc(40px + 20px); /* Adjust to end at the last dot */
+  left: 50%;
+  z-index: -1;
+}
+
+  @media screen and (max-width: 768px) {
+    .timeline-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .timeline-content {
+      width: 100%;
+      margin-left: 0;
+    }
+    .connector-line {
+      left: 50%;
+    }
   }
 </style>
