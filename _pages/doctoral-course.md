@@ -1,70 +1,131 @@
-# Summary of Doctoral Courses Timeline:
+---
+layout: archive
+title: "Doctoral Course"
+permalink: /doctoral-course/
+author_profile: true
+redirect_from:
+  - /resume
+---
 
 <div class="vertical-timeline" id="timeline">
   <div class="year-marker">
     <h3>2024</h3>
     <div class="year-line"></div>
   </div>
-  <div class="timeline-block" data-semester="202410">
-    <div class="timeline-marker"></div>
-    <div class="timeline-content">
+  <div class="timeline-block right" data-semester="202410">
+    <div class="course-card semester-card">
       <h4>Fall 2024</h4>
-      <ul>
-        <li><strong>CS 834: INTRO INFO RETRIEVAL</strong> - PhD Level: PhD, Research Area: WS-DL, Credits: 3, Instructor: Wu, Jian</li>
-        <li><strong>CS 600: ALGORITHMS AND DATA STRUCTURES</strong> - PhD Level: PhD, Research Area: Does not count (B), Credits: 3, Instructor: He, Yi</li>
-      </ul>
+      <div class="course-details">
+        <p><strong>Course:</strong> CS 834: INTRO INFO RETRIEVAL</p>
+        <p><strong>Level:</strong> PhD</p>
+        <p><strong>Research Area:</strong> WS-DL</p>
+        <p><strong>Credits:</strong> 3</p>
+        <p><strong>Instructor:</strong> Wu, Jian</p>
+      </div>
+    </div>
+    <div class="course-card semester-card">
+      <h4>Fall 2024</h4>
+      <div class="course-details">
+        <p><strong>Course:</strong> CS 600: ALGORITHMS AND DATA STRUCTURES</p>
+        <p><strong>Level:</strong> PhD</p>
+        <p><strong>Research Area:</strong> Does not count (B)</p>
+        <p><strong>Credits:</strong> 3</p>
+        <p><strong>Instructor:</strong> Chernikov, Andrey</p>
+      </div>
     </div>
   </div>
-  <div class="timeline-block" data-semester="202430">
-    <div class="timeline-marker"></div>
-    <div class="timeline-content">
+  <div class="timeline-block left" data-semester="202430">
+    <div class="course-card semester-card">
       <h4>Summer 2024</h4>
-      <ul>
-        <li><strong>CS 899: DOCTORAL DISSERTATION</strong> - PhD Level: PhD (B), Research Area: None specified, Credits: 3, Instructor: Nelson, Michael L</li>
-      </ul>
+      <div class="course-details">
+        <p><strong>Course:</strong> CS 899: DOCTORAL DISSERTATION</p>
+        <p><strong>Level:</strong> PhD (B)</p>
+        <p><strong>Research Area:</strong> None specified</p>
+        <p><strong>Credits:</strong> 3</p>
+        <p><strong>Instructor:</strong> Nelson, Michael L</p>
+      </div>
     </div>
   </div>
-  <div class="timeline-block" data-semester="202420">
-    <div class="timeline-marker"></div>
-    <div class="timeline-content">
+  <div class="timeline-block right" data-semester="202420">
+    <div class="course-card semester-card">
       <h4>Spring 2024</h4>
-      <ul>
-        <li><strong>CS 895: TPCS: DEEP LEARN FUND & AAPL</strong> - PhD Level: PhD (B), Research Area: MIDA, Credits: 3, Instructor: Liu, Frank Y</li>
-        <li><strong>CS 833: NATURAL LANGUAGE PROCESSING</strong> - PhD Level: PhD (B), Research Area: WS-DL, Credits: 3, Instructor: Ganjigunte Ashok, Vikas</li>
-      </ul>
+      <div class="course-details">
+        <p><strong>Course:</strong> CS 895: TPCS: DEEP LEARN FUND & AAPL</p>
+        <p><strong>Level:</strong> PhD (B)</p>
+        <p><strong>Research Area:</strong> MIDA</p>
+        <p><strong>Credits:</strong> 3</p>
+        <p><strong>Instructor:</strong> Liu, Frank Y</p>
+      </div>
+    </div>
+    <div class="course-card semester-card">
+      <h4>Spring 2024</h4>
+      <div class="course-details">
+        <p><strong>Course:</strong> CS 833: NATURAL LANGUAGE PROCESSING</p>
+        <p><strong>Level:</strong> PhD (B)</p>
+        <p><strong>Research Area:</strong> WS-DL</p>
+        <p><strong>Credits:</strong> 3</p>
+        <p><strong>Instructor:</strong> Ganjigunte Ashok, Vikas</p>
+      </div>
     </div>
   </div>
   <div class="year-marker">
     <h3>2023</h3>
     <div class="year-line"></div>
   </div>
-  <div class="timeline-block" data-semester="202310">
-    <div class="timeline-marker"></div>
-    <div class="timeline-content">
+  <div class="timeline-block right" data-semester="202310">
+    <div class="course-card semester-card">
       <h4>Fall 2023</h4>
-      <ul>
-        <li><strong>CS 822: MACHINE LEARNING</strong> - PhD Level: PhD, Research Area: MIDA, Credits: 3, Instructor: Sun, Jiangwen</li>
-        <li><strong>CS 533: WEB SECURITY</strong> - PhD Level: PhD, Research Area: Does not count (B), Credits: 3, Instructor: Nelson, Michael</li>
-      </ul>
+      <div class="course-details">
+        <p><strong>Course:</strong> CS 822: MACHINE LEARNING</p>
+        <p><strong>Level:</strong> PhD</p>
+        <p><strong>Research Area:</strong> MIDA</p>
+        <p><strong>Credits:</strong> 3</p>
+        <p><strong>Instructor:</strong> Sun, Jiangwen</p>
+      </div>
+    </div>
+    <div class="course-card semester-card">
+      <h4>Fall 2023</h4>
+      <div class="course-details">
+        <p><strong>Course:</strong> CS 533: WEB SECURITY</p>
+        <p><strong>Level:</strong> PhD</p>
+        <p><strong>Research Area:</strong> Does not count (B)</p>
+        <p><strong>Credits:</strong> 3</p>
+        <p><strong>Instructor:</strong> Nelson, Michael</p>
+      </div>
     </div>
   </div>
-  <div class="timeline-block" data-semester="202330">
-    <div class="timeline-marker"></div>
-    <div class="timeline-content">
+  <div class="timeline-block left" data-semester="202330">
+    <div class="course-card semester-card">
       <h4>Summer 2023</h4>
-      <ul>
-        <li><strong>CS 896: TPCS: WEB ARCHIVING</strong> - PhD Level: PhD (B), Research Area: WS-DL, Credits: 3, Instructor: Nelson, Michael</li>
-      </ul>
+      <div class="course-details">
+        <p><strong>Course:</strong> CS 896: TPCS: WEB ARCHIVING</p>
+        <p><strong>Level:</strong> PhD (B)</p>
+        <p><strong>Research Area:</strong> WS-DL</p>
+        <p><strong>Credits:</strong> 3</p>
+        <p><strong>Instructor:</strong> Nelson, Michael</p>
+      </div>
     </div>
   </div>
-  <div class="timeline-block" data-semester="202320">
-    <div class="timeline-marker"></div>
-    <div class="timeline-content">
+  <div class="timeline-block right" data-semester="202320">
+    <div class="course-card semester-card">
       <h4>Spring 2023</h4>
-      <ul>
-        <li><strong>CS 550: DATABASE CONCEPT</strong> - PhD Level: PhD, Research Area: Does not count (B), Credits: 3, Instructor: Wu, Jian</li>
-        <li><strong>CS 800: RESEARCH METHODS</strong> - PhD Level: PhD, Research Area: Does not count (B), Credits: 3, Instructor: Olariu, Stephan</li>
-      </ul>
+      <div class="course-details">
+        <p><strong>Course:</strong> CS 550: DATABASE CONCEPT</p>
+        <p><strong>Level:</strong> PhD</p>
+        <p><strong>Research Area:</strong> Does not count (B)</p>
+        <p><strong>Credits:</strong> 3</p>
+        <p><strong>Instructor:</strong> Wu, Jian</p>
+      </div>
+    </div>
+    <div class="course-card semester-card">
+      <h4>Spring 2023</h4>
+      <div class="course-details">
+        <p><strong>Course:</strong> CS 800: RESEARCH METHODS</p>
+        <p><strong>Level:</strong> PhD</p>
+        <p><strong>Research Area:</strong> Does not count (B)</p>
+        <p><strong>Credits:</strong> 3</p>
+        <p><strong>Instructor:</strong> Olariu, Stephan</p>
+      </div>
     </div>
   </div>
 </div>
@@ -82,47 +143,43 @@
   }
   .year-marker {
     text-align: center;
-    margin: 20px 0;
+    margin: 30px 0;
     position: relative;
   }
   .year-line {
-    width: 2px;
-    height: 50px;
-    background-color: #3498db;
-    margin: 10px auto;
+    width: 3px;
+    height: 60px;
+    background-color: #2980b9;
+    margin: 15px auto;
   }
   .timeline-block {
-    display: flex;
-    align-items: flex-start;
-    position: relative;
     margin: 30px 0;
+    display: flex;
+    justify-content: space-between;
   }
-  .timeline-marker {
-    width: 20px;
-    height: 20px;
-    background: #3498db;
-    border-radius: 50%;
-    flex-shrink: 0;
-    position: absolute;
-    left: -10px;
-    top: 10px;
+  .timeline-block.right {
+    justify-content: flex-end;
   }
-  .timeline-content {
-    padding: 15px 25px;
-    background: #ffffff;
+  .timeline-block.left {
+    justify-content: flex-start;
+  }
+  .semester-card {
+    border-left: 6px solid #3498db;
+    padding-left: 15px;
+  }
+  .course-card {
+    border: 1px solid #3498db;
+    padding: 20px;
+    margin: 15px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: relative;
-    border-left: 4px solid #3498db;
+    background-color: #f0f8ff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    width: 45%;
   }
-  .timeline-content h4 {
-    margin-top: 0;
+  .course-details p {
+    margin: 5px 0;
+  }
+  h4 {
     color: #2c3e50;
-  }
-  .timeline-content ul {
-    padding-left: 20px;
-  }
-  .timeline-content ul li {
-    margin-bottom: 10px;
   }
 </style>
