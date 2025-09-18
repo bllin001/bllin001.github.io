@@ -21,13 +21,24 @@
                 </nav>
             </div>
         </header>
-    <main class="about-main">
-        <div class="about-container">
-            <section style="background:none; box-shadow:none; border-radius:0; width:100vw; max-width:100vw; padding:0; margin:0;">
-                    <div style="width:100vw; height:90vh; display:flex; align-items:flex-start; justify-content:left; background:none;">
-                        <embed src="../assets/CV_EN_Brian_Llinas.pdf" type="application/pdf" style="width:70vw; height:100%; border-radius:10px; box-shadow:0 2px 12px rgba(0,0,0,0.08); background:#fff;" />
-                    </div>
-                    <p style="text-align:left; margin:18px 0 0 32px;"><a href="../assets/CV_EN_Brian_Llinas.pdf" target="_blank">Download CV as PDF</a></p>
+    <main class="cv-main">
+        <div class="cv-container">
+            <section class="cv-header">
+                <div>
+                    <h1 id="cvTitle">Curriculum Vitae</h1>
+                    <p class="cv-subtitle">Review the embedded CV or download a copy for offline reference.</p>
+                </div>
+                <a class="btn btn-primary" href="../assets/CV_EN_Brian_Llinas.pdf" target="_blank" rel="noopener" download>
+                    Download PDF
+                </a>
+            </section>
+            <section class="cv-viewer" aria-labelledby="cvTitle">
+                <div class="cv-frame">
+                    <object data="../assets/CV_EN_Brian_Llinas.pdf" type="application/pdf" class="cv-embed">
+                        <p>Your browser doesn't support inline PDFs. <a href="../assets/CV_EN_Brian_Llinas.pdf" target="_blank" rel="noopener">Open the CV in a new tab.</a></p>
+                    </object>
+                </div>
+                <p class="cv-note">Need a separate window? <a href="../assets/CV_EN_Brian_Llinas.pdf" target="_blank" rel="noopener">Open the CV as a standalone PDF</a>.</p>
             </section>
         </div>
     </main>
@@ -35,35 +46,13 @@
         <div class="footer-top">
             <div>
                 <strong>© 2024–2025 Brian Llinás</strong><br>
-            <footer class="site-footer">
-                <div class="footer-top">
-                    <div>
-                        <strong>© 2024–2025 Brian Llinás</strong><br>
-                        bllin001@odu.edu
-                    </div>
-                    <div class="footer-links">
-                        <a href="about.html">About</a>
-                        <a href="publications.html">Publication</a>
-                        <a href="media.html">Media & Outreach</a>
-                        <a href="cv.html">CV</a>
-                        <a href="https://www.linkedin.com/in/brianllinas" target="_blank" rel="noopener">LinkedIn</a>
-                        <a href="https://github.com/bllin001" target="_blank" rel="noopener">GitHub</a>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <div class="footer-bottom-inner">
-                        <span>Site maintained by Brian Llinás.</span>
-                        <span>Template available on <a href="https://github.com/bllin001/bllin001.github.io" target="_blank" rel="noopener">GitHub</a>.</span>
-                    </div>
-                </div>
-            </footer>
                 bllin001@odu.edu
             </div>
             <div class="footer-links">
-                 <a href="about.html">About</a>
-                 <a href="publications.html">Publication</a>
-                 <a href="media.html">Media & Outreach</a>
-                 <a href="cv.html">CV</a>
+                <a href="about.html">About</a>
+                <a href="publications.html">Publication</a>
+                <a href="media.html">Media & Outreach</a>
+                <a href="cv.html">CV</a>
                 <a href="https://www.linkedin.com/in/brianllinas" target="_blank" rel="noopener">LinkedIn</a>
                 <a href="https://github.com/bllin001" target="_blank" rel="noopener">GitHub</a>
             </div>
