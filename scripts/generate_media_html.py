@@ -7,14 +7,20 @@ OUTPUT_HTML = '../pages/media.html'
 
 CARD_TEMPLATE = '''
 <li>
-    <article class="pub-card">
-        <header>
-            <h4>{title}</h4>
-        </header>
-        <p class="pub-authors">{authors}. ({date_str}).</p>
-        <p class="pub-meta"><a href="{url}" target="_blank" rel="noopener">{url}</a></p>
-        <div class="pub-links">
-            <a class="badge-link" href="{url}" target="_blank" rel="noopener">Blog Post</a>
+    <article class="pub-card" style="display: flex; align-items: flex-start; gap: 24px; padding: 18px 24px; background: #fff; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 18px;">
+        <div class="media-bookmark" style="flex: 0 0 120px; display: flex; align-items: center; justify-content: center;">
+            {image_html}
+        </div>
+        <div class="media-details" style="flex: 1;">
+            <header>
+                <h4 style="margin-bottom: 8px;">{title}</h4>
+                <span class="pub-date" style="display: block; color: #555; margin-bottom: 8px;">{date_str}</span>
+            </header>
+            <p class="pub-authors" style="margin-bottom: 12px;">{authors}</p>
+            <div class="pub-links" style="margin-top: 1em; display: flex; gap: 12px;">
+                <a class="badge-link" href="{url}" target="_blank" rel="noopener">Blog</a>
+                {github_html}
+            </div>
         </div>
     </article>
 </li>
@@ -46,13 +52,24 @@ def read_media_csv(csv_path):
         reader = csv.DictReader(f)
         for row in reader:
             year, date_str = parse_date(row['date'])
+            image_url = (row.get('image') or '').strip()
+            image_html = f'<img src="{image_url}" alt="{row["title"]} bookmark" style="width:180px; height:auto; max-height:140px; object-fit:cover; border-radius:10px; margin-bottom:8px;">' if image_url else ''
+            github_url = (row.get('github') or '').strip()
+            github_html = f'<a class="badge-link" href="{github_url}" target="_blank" rel="noopener">Github Repository</a>' if github_url else ''
+            # Bold 'Llinas, B.', 'Llinás, B.', and 'Brian Llinas' in authors
+            authors = row['authors']
+            authors = authors.replace('Llinas, B.', '<strong>Llinas, B.</strong>')
+            authors = authors.replace('Llinás, B.', '<strong>Llinás, B.</strong>')
+            authors = authors.replace('Brian Llinas', '<strong>Brian Llinas</strong>')
             entries.append({
                 'title': row['title'],
-                'authors': row['authors'],
+                'authors': authors,
                 'date': row['date'],
                 'date_str': date_str,
                 'year': year,
-                'url': row['url']
+                'url': row['url'],
+                'image_html': image_html,
+                'github_html': github_html
             })
     return entries
 
