@@ -8,6 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = BASE_DIR.parent
 INPUT_CSV = PROJECT_ROOT / 'data' / 'publications.csv'
 OUTPUT_HTML = PROJECT_ROOT / 'pages' / 'publications.html'
+CSS_VERSION = '20250129'
 
 TYPE_CONFIG = {
     'peer-reviewed journal article': {
@@ -180,6 +181,7 @@ def build_entry(row):
         ('poster', 'Poster'),
         ('code', 'Code Repository'),
         ('supplement', 'Supplementary Material'),
+        ('presentation', 'Presentation'),
     ]
 
     for column, label in link_columns:
@@ -270,7 +272,36 @@ def group_by_year(entries):
     return result
 
 
-def render_html(type_groups, year_groups):
+def render_publications_page(type_groups, year_groups):
+    inline_styles = '''
+      .toggle-btn { margin: 24px 0 16px 0; padding: 10px 28px; font-size: 1em; border-radius: 999px; border: 1px solid #d0d9e4; background: #fff; color: #22364a; cursor: pointer; font-weight: 600; transition: all 0.2s ease; }
+      .toggle-btn + .toggle-btn { margin-left: 12px; }
+      .toggle-btn.active { background: #22364a; color: #fff; box-shadow: 0 12px 24px rgba(34, 54, 74, 0.25); }
+      .pub-toggle-section { display: none; }
+      .pub-toggle-section.active { display: block; }
+      .pub-card__badges { display: flex; gap: 12px; margin-bottom: 8px; }
+    '''
+
+    type_sections = []
+    for heading, items in type_groups:
+        type_sections.append('                <section class="pub-section" style="margin-bottom:48px;">')
+        type_sections.append(f'                    <h3>{heading}</h3>')
+        type_sections.append('                    <ol class="pub-list">')
+        for entry in items:
+            type_sections.append(CARD_TEMPLATE.format(**entry))
+        type_sections.append('                    </ol>')
+        type_sections.append('                </section>')
+
+    year_sections = []
+    for label, items in year_groups:
+        year_sections.append('                <section class="pub-section">')
+        year_sections.append(f'                    <h3>{label}</h3>')
+        year_sections.append('                    <ol class="pub-list" style="margin-bottom:40px;">')
+        for entry in items:
+            year_sections.append(CARD_TEMPLATE.format(**entry))
+        year_sections.append('                    </ol>')
+        year_sections.append('                </section>')
+
     html = []
     html.append('<!DOCTYPE html>')
     html.append('<html lang="en">')
@@ -279,25 +310,20 @@ def render_html(type_groups, year_groups):
     html.append('    <meta name="viewport" content="width=device-width, initial-scale=1.0">')
     html.append('    <title>Publications | Brian Llinás</title>')
     html.append('    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">')
-    html.append('    <link rel="stylesheet" href="../style.css">')
+    html.append(f'    <link rel="stylesheet" href="../style.css?v={CSS_VERSION}">')
     html.append('    <style>')
-    html.append('      .toggle-btn { margin: 24px 0 16px 0; padding: 10px 28px; font-size: 1em; border-radius: 999px; border: 1px solid #d0d9e4; background: #fff; color: #22364a; cursor: pointer; font-weight: 600; transition: all 0.2s ease; }')
-    html.append('      .toggle-btn + .toggle-btn { margin-left: 12px; }')
-    html.append('      .toggle-btn.active { background: #22364a; color: #fff; box-shadow: 0 12px 24px rgba(34, 54, 74, 0.25); }')
-    html.append('      .pub-toggle-section { display: none; }')
-    html.append('      .pub-toggle-section.active { display: block; }')
-    html.append('      .pub-card__badges { display: flex; gap: 12px; margin-bottom: 8px; }')
+    html.append(inline_styles.strip())
     html.append('    </style>')
     html.append('</head>')
     html.append('<body style="background:#f7f8fa;">')
-    html.append('    <header style="background:#2c3e50; padding:20px 0; color:#fff;">')
-    html.append('        <div class="container" style="background:none; box-shadow:none; padding:0; max-width:1100px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">')
-    html.append('            <a href="../pages/about.html" style="display:inline-block; margin-right:24px; text-decoration:none; color:#fff; font-size:1.6em; font-weight:700; letter-spacing:1px; background:#22364a; padding:8px 28px; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); transition:background 0.2s;">Brian Llinás</a>')
-    html.append('            <nav style="display:flex; gap:24px; flex-wrap:wrap;">')
-    html.append('                 <a href="about.html" style="color:#fff; text-decoration:none; font-weight:bold;">About Me</a>')
-    html.append('                 <a href="publications.html" style="color:#fff; text-decoration:none; font-weight:bold; border-bottom:3px solid #f1c40f; padding-bottom:4px;">Publication</a>')
-    html.append('                 <a href="media.html" style="color:#fff; text-decoration:none; font-weight:bold;">Media & Outreach</a>')
-    html.append('                 <a href="cv.html" style="color:#fff; text-decoration:none; font-weight:bold;">CV</a>')
+    html.append('    <header class="site-header">')
+    html.append('        <div class="site-header__inner">')
+    html.append('            <a class="site-logo" href="about.html">Brian Llinás</a>')
+    html.append('            <nav class="site-nav">')
+    html.append('                <a class="site-nav__link" href="about.html">About Me</a>')
+    html.append('                <a class="site-nav__link site-nav__link--active" href="publications.html">Publication</a>')
+    html.append('                <a class="site-nav__link" href="media.html">Media & Outreach</a>')
+    html.append('                <a class="site-nav__link" href="cv.html">CV</a>')
     html.append('            </nav>')
     html.append('        </div>')
     html.append('    </header>')
@@ -308,24 +334,10 @@ def render_html(type_groups, year_groups):
     html.append('                <button class="toggle-btn" id="toggleType">Group by Type</button>')
     html.append('            </div>')
     html.append('            <div class="pub-toggle-section" id="sectionType">')
-    for heading, items in type_groups:
-        html.append('                <section class="pub-section" style="margin-bottom:48px;">')
-        html.append(f'                    <h3>{heading}</h3>')
-        html.append('                    <ol class="pub-list">')
-        for entry in items:
-            html.append(CARD_TEMPLATE.format(**entry))
-        html.append('                    </ol>')
-        html.append('                </section>')
+    html.extend(type_sections)
     html.append('            </div>')
     html.append('            <div class="pub-toggle-section active" id="sectionYear">')
-    for label, items in year_groups:
-        html.append('                <section class="pub-section">')
-        html.append(f'                    <h3>{label}</h3>')
-        html.append('                    <ol class="pub-list" style="margin-bottom:40px;">')
-        for entry in items:
-            html.append(CARD_TEMPLATE.format(**entry))
-        html.append('                    </ol>')
-        html.append('                </section>')
+    html.extend(year_sections)
     html.append('            </div>')
     html.append('        </div>')
     html.append('    </main>')
@@ -372,14 +384,14 @@ def render_html(type_groups, year_groups):
     html.append('    </script>')
     html.append('</body>')
     html.append('</html>')
-    return '\n'.join(html)
+    return '\n'.join(html) + '\n'
 
 
 def main():
     entries = read_publications_csv(INPUT_CSV)
     type_groups = group_by_type(entries)
     year_groups = group_by_year(entries)
-    html = render_html(type_groups, year_groups)
+    html = render_publications_page(type_groups, year_groups)
     with open(OUTPUT_HTML, 'w', encoding='utf-8') as handle:
         handle.write(html)
 
