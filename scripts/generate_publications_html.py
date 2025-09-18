@@ -1,3 +1,11 @@
+def group_by_year(entries):
+    grouped = defaultdict(list)
+    for entry in entries:
+        grouped[entry['year']].append(entry)
+    years = sorted([y for y in grouped if y != 'Unknown'], reverse=True)
+    if 'Unknown' in grouped:
+        years.append('Unknown')
+    return {y: grouped[y] for y in years}
 import csv
 from collections import defaultdict
 from datetime import datetime
@@ -86,8 +94,7 @@ def group_by_type(entries):
     sorted_types = [t for t in type_order if t in grouped] + [t for t in grouped if t not in type_order]
     return {t: grouped[t] for t in sorted_types}
 
-def render_html(grouped):
-    # Full HTML template
+def render_html(type_grouped, year_grouped):
     html = []
     html.append('<!DOCTYPE html>')
     html.append('<html lang="en">')
@@ -97,6 +104,12 @@ def render_html(grouped):
     html.append('    <title>Publications | Brian Llinás</title>')
     html.append('    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">')
     html.append('    <link rel="stylesheet" href="../style.css">')
+    html.append('    <style>')
+    html.append('      .toggle-btn { margin: 24px 0 16px 0; padding: 8px 24px; font-size: 1em; border-radius: 8px; border: none; background: #22364a; color: #fff; cursor: pointer; }')
+    html.append('      .toggle-btn.active { background: #f1c40f; color: #22364a; }')
+    html.append('      .pub-toggle-section { display: none; }')
+    html.append('      .pub-toggle-section.active { display: block; }')
+    html.append('    </style>')
     html.append('</head>')
     html.append('<body style="background:#f7f8fa;">')
     html.append('    <header style="background:#2c3e50; padding:20px 0; color:#fff;">')
@@ -112,15 +125,30 @@ def render_html(grouped):
     html.append('    </header>')
     html.append('    <main class="pubs-main">')
     html.append('        <div class="pubs-container">')
-    # Publication sections
-    for pub_type, items in grouped.items():
-        html.append(f'            <section class="pub-section">')
-        html.append(f'                <h3>{pub_type}s</h3>')
-        html.append('                <ol class="pub-list">')
+    html.append('            <div style="text-align:center;">')
+    html.append('                <button class="toggle-btn active" id="toggleType">Group by Type</button>')
+    html.append('                <button class="toggle-btn" id="toggleYear">Group by Year</button>')
+    html.append('            </div>')
+    html.append('            <div class="pub-toggle-section active" id="sectionType">')
+    for pub_type, items in type_grouped.items():
+        html.append(f'                <section class="pub-section">')
+        html.append(f'                    <h3>{pub_type}s</h3>')
+        html.append('                    <ol class="pub-list">')
         for entry in items:
             html.append(CARD_TEMPLATE.format(**entry))
-        html.append('                </ol>')
-        html.append('            </section>')
+        html.append('                    </ol>')
+        html.append('                </section>')
+    html.append('            </div>')
+    html.append('            <div class="pub-toggle-section" id="sectionYear">')
+    for year, items in year_grouped.items():
+        html.append(f'                <section class="pub-section">')
+        html.append(f'                    <h3>{year}</h3>')
+        html.append('                    <ol class="pub-list">')
+        for entry in items:
+            html.append(CARD_TEMPLATE.format(**entry))
+        html.append('                    </ol>')
+        html.append('                </section>')
+    html.append('            </div>')
     html.append('        </div>')
     html.append('    </main>')
     html.append('    <footer class="site-footer">')
@@ -146,24 +174,33 @@ def render_html(grouped):
     html.append('            </div>')
     html.append('        </div>')
     html.append('    </footer>')
+    html.append('    <script>')
+    html.append('      const btnType = document.getElementById("toggleType");')
+    html.append('      const btnYear = document.getElementById("toggleYear");')
+    html.append('      const sectionType = document.getElementById("sectionType");')
+    html.append('      const sectionYear = document.getElementById("sectionYear");')
+    html.append('      btnType.addEventListener("click", function() {')
+    html.append('        btnType.classList.add("active");')
+    html.append('        btnYear.classList.remove("active");')
+    html.append('        sectionType.classList.add("active");')
+    html.append('        sectionYear.classList.remove("active");')
+    html.append('      });')
+    html.append('      btnYear.addEventListener("click", function() {')
+    html.append('        btnYear.classList.add("active");')
+    html.append('        btnType.classList.remove("active");')
+    html.append('        sectionYear.classList.add("active");')
+    html.append('        sectionType.classList.remove("active");')
+    html.append('      });')
+    html.append('    </script>')
     html.append('</body>')
     html.append('</html>')
     return '\n'.join(html)
 
 def main():
     entries = read_publications_csv(INPUT_CSV)
-    grouped = group_by_type(entries)
-    html_section = render_html(grouped)
-
-    # Read the existing publications.html and replace the section
-    with open(OUTPUT_HTML, 'r', encoding='utf-8') as f:
-        html = f.read()
-    start = html.find('<section class="pub-section">')
-    end = html.find('</section>', start)
-    if start != -1 and end != -1:
-        new_html = html[:start] + html_section + html[end+10:]
-    else:
-        new_html = html
+    type_grouped = group_by_type(entries)
+    year_grouped = group_by_year(entries)
+    html_section = render_html(type_grouped, year_grouped)
     with open(OUTPUT_HTML, 'w', encoding='utf-8') as f:
         f.write(html_section)
 
