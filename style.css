@@ -359,52 +359,94 @@ ul {
     font-size: 1em;
 }
 
+
 .pub-section h3 {
-    color: #2b4160;
-    margin: 0 0 18px;
+    color: #22364a;
+    margin: 0 0 20px;
+    font-size: 1.45em;
+    letter-spacing: 0.01em;
 }
 
 .pub-list {
-    list-style: decimal;
+    list-style: none;
     margin: 0;
-    padding-left: 22px;
+    padding: 0;
     display: grid;
-    gap: 18px;
-}
-
-.pub-list li {
-    padding-left: 6px;
+    gap: 20px;
 }
 
 .pub-card {
-    background: #f7f8fa;
-    border: 1px solid rgba(23, 68, 107, 0.2);
-    border-radius: 16px;
-    padding: 20px 22px 24px;
-    box-shadow: 0 12px 25px rgba(23, 68, 107, 0.12);
-}
-
-.pub-card header {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 26px 28px;
+    box-shadow: 0 20px 45px rgba(23, 68, 107, 0.12);
+    border: 1px solid rgba(23, 68, 107, 0.08);
     display: flex;
     flex-direction: column;
+    gap: 16px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pub-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 26px 56px rgba(23, 68, 107, 0.18);
+}
+
+.pub-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.pub-card__source {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.82em;
+    color: #17446b;
+}
+
+.pub-card__badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.pub-pill {
+    display: inline-flex;
+    align-items: center;
     gap: 6px;
-    margin-bottom: 12px;
-}
-
-.pub-source {
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: #eef3fb;
+    color: #17446b;
     font-weight: 600;
-    color: #1f4f82;
-    letter-spacing: 0.5px;
+    font-size: 0.82em;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
 }
 
-.pub-card h4 {
+.pub-pill--year {
+    background: #17446b;
+    color: #ffffff;
+}
+
+.pub-pill--type {
+    background: #f1c40f;
+    color: #22364a;
+}
+
+.pub-card__title {
     margin: 0;
+    font-size: 1.18em;
+    line-height: 1.35;
     color: #1d2e45;
-    font-size: 1.1em;
 }
 
 .pub-title {
-    color: #1c3d6b;
+    color: inherit;
     text-decoration: none;
     transition: color 0.2s ease;
 }
@@ -415,15 +457,17 @@ ul {
 }
 
 .pub-authors {
-    margin: 0 0 8px;
+    margin: 0;
     color: #2f3b4c;
     line-height: 1.6;
+    font-size: 0.98em;
 }
 
 .pub-meta {
-    margin: 0 0 12px;
-    color: #425067;
+    margin: 0;
+    color: #43546c;
     line-height: 1.5;
+    font-size: 0.95em;
 }
 
 .pub-meta a {
