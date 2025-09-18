@@ -286,6 +286,7 @@ def render_html(type_groups, year_groups):
     html.append('      .toggle-btn.active { background: #22364a; color: #fff; box-shadow: 0 12px 24px rgba(34, 54, 74, 0.25); }')
     html.append('      .pub-toggle-section { display: none; }')
     html.append('      .pub-toggle-section.active { display: block; }')
+    html.append('      .pub-card__badges { display: flex; gap: 12px; margin-bottom: 8px; }')
     html.append('    </style>')
     html.append('</head>')
     html.append('<body style="background:#f7f8fa;">')
@@ -308,7 +309,7 @@ def render_html(type_groups, year_groups):
     html.append('            </div>')
     html.append('            <div class="pub-toggle-section" id="sectionType">')
     for heading, items in type_groups:
-        html.append('                <section class="pub-section">')
+        html.append('                <section class="pub-section" style="margin-bottom:48px;">')
         html.append(f'                    <h3>{heading}</h3>')
         html.append('                    <ol class="pub-list">')
         for entry in items:
@@ -320,7 +321,7 @@ def render_html(type_groups, year_groups):
     for label, items in year_groups:
         html.append('                <section class="pub-section">')
         html.append(f'                    <h3>{label}</h3>')
-        html.append('                    <ol class="pub-list">')
+        html.append('                    <ol class="pub-list" style="margin-bottom:40px;">')
         for entry in items:
             html.append(CARD_TEMPLATE.format(**entry))
         html.append('                    </ol>')
