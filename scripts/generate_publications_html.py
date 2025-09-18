@@ -57,9 +57,11 @@ def read_publications_csv(csv_path):
             notes_html = ''
             if row.get('notes'):
                 notes_html = f'<p class="pub-notes">{row["notes"]}</p>'
+            # Always bold 'Llinas, B.' in authors
+            authors = row['authors'].replace('Llinas, B.', '<strong>Llinas, B.</strong>').replace('Llinás, B.', '<strong>Llinás, B.</strong>')
             entries.append({
                 'title': row['title'],
-                'authors': row['authors'],
+                'authors': authors,
                 'year': year,
                 'source': source,
                 'type': pub_type,
