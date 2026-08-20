@@ -1,0 +1,80 @@
+---
+import Papa from "papaparse";
+import Layout from "../layouts/Layout.astro";
+import MediaCard from "../components/MediaCard.astro";
+import mediaCsv from "../data/media.csv?raw";
+import type { MediaEntry } from "../types/media";
+
+const result = Papa.parse<MediaEntry>(mediaCsv, {
+	header: true,
+	skipEmptyLines: true,
+});
+
+const blockingErrors = result.errors.filter(
+	(error) => error.code !== "TooFewFields",
+);
+
+if (blockingErrors.length > 0) {
+	throw new Error(`Could not parse media.csv: ${blockingErrors[0].message}`);
+}
+
+const entries = result.data
+	.map((entry) => ({ ...entry, github: entry.github || "" }))
+	.sort((a, b) => b.date.localeCompare(a.date));
+
+const entriesByYear = entries.reduce<Record<string, MediaEntry[]>>(
+	(groups, entry) => {
+		const year = entry.date.slice(0, 4) || "Unknown";
+		(groups[year] ??= []).push(entry);
+		return groups;
+	},
+	{},
+);
+
+const yearGroups = Object.entries(entriesByYear).sort(([yearA], [yearB]) => {
+	if (yearA === "Unknown") return 1;
+	if (yearB === "Unknown") return -1;
+	return Number(yearB) - Number(yearA);
+});
+---
+
+<Layout
+	title="Media & Outreach | Brian Llinás"
+	description="Media, articles, and outreach by Brian Llinás."
+>
+	<div class="pubs-main">
+		<div class="pubs-container">
+			<section class="pub-section">
+				<h3>Media & Other Outreach</h3>
+
+				{
+					yearGroups.map(([year, entries]) => (
+						<>
+							<h4 class="media-year">{year}</h4>
+							<div class="media-grid">
+								{entries.map((entry) => (
+									<MediaCard entry={entry} />
+								))}
+							</div>
+						</>
+					))
+				}
+			</section>
+		</div>
+	</div>
+</Layout>
+
+<style>
+	.media-year {
+		margin-top: 2em;
+	}
+
+	.media-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 28px;
+		padding: 0;
+		margin-top: 24px;
+		list-style: none;
+	}
+</style>

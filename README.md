@@ -1,39 +1,47 @@
-# Personal Website Workspace
+# Brian Llinás — Personal Website
 
-## Structure
+Personal academic website built with Astro. Publications and media entries are
+generated from CSV data during the static build.
 
-- `pages/` — All HTML pages (about, publications, media, cv, etc.)
-- `assets/` — Images, PDFs, and other static resources
-- `data/` — Data files (e.g., `publications.csv`)
-- `scripts/` — Automation scripts (e.g., `generate_publications_html.py`)
+## Project structure
 
-## Workflow
+```text
+/
+├── public/          Static images and documents
+├── src/
+│   ├── components/ Reusable Astro components
+│   ├── data/       Publications and media CSV files
+│   ├── layouts/    Shared page layout
+│   ├── pages/      File-based routes
+│   ├── styles/     Global styles
+│   └── types/      Shared TypeScript interfaces
+├── astro.config.mjs
+└── package.json
+```
 
-1. **Update Content**
-   - Edit HTML pages in `pages/` for static content.
-   - Add or update publication data in `data/publications.csv`.
+## Commands
 
-2. **Automate Publications Page**
-   - Run the script:
-     ```bash
-     cd scripts
-     python generate_publications_html.py
-     ```
-   - This will regenerate `pages/publications.html` with the latest publication data.
+Install dependencies:
 
-3. **Add Assets**
-   - Place images, PDFs, and other files in the `assets/` directory.
+```sh
+npm install
+```
 
-4. **Version Control**
-   - Use clear commit messages for changes.
-   - Optionally, add generated files to `.gitignore` if you don't want to track them.
+Start the development server:
 
-## Naming Conventions
-- Use lowercase and hyphens for filenames (e.g., `about.html`, `media.html`).
+```sh
+npm run dev
+```
 
-## Customization
-- Update navigation and layout in each HTML file as needed.
-- For more automation or templating, consider migrating to Jekyll or another static site generator.
+Create and preview a production build:
 
----
-For questions or improvements, contact the repository owner.
+```sh
+npm run build
+npm run preview
+```
+
+## Content updates
+
+- Edit `src/data/publications.csv` to update publications.
+- Edit `src/data/media.csv` to update media and outreach entries.
+- Place directly served images and documents in `public/`.

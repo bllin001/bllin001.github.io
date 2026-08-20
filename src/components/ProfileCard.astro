@@ -1,0 +1,87 @@
+---
+const actions = [
+    {
+        href: "mailto:bllin001@odu.edu",
+        label: "Email Me",
+        className: "btn btn-primary",
+        external: false,
+    },
+    {
+        href: "https://www.linkedin.com/in/brian-jesus-llinas-marimon/",
+        label: "LinkedIn",
+        className: "btn btn-secondary",
+        external: true,
+    },
+    {
+        href: "https://scholar.google.com/citations?hl=en&user=nE29OcUAAAAJ",
+        label: "Google Scholar",
+        className: "btn btn-outline",
+        external: true,
+    },
+    {
+        href: "/CV_EN_Brian_Llinas.pdf",
+        label: "Download CV",
+        className: "btn btn-outline",
+        external: true,
+    },
+];
+
+const socialLinks = [
+    { href: "https://github.com/bllin001", label: "GitHub" },
+    { href: "https://x.com/brianllinas", label: "X (Twitter)" },
+    {
+        href: "https://www.researchgate.net/profile/Brian-Llinas-Marimon",
+        label: "ResearchGate",
+    },
+    {
+        href: "https://orcid.org/0009-0002-1344-9168",
+        label: "ORCID",
+    },
+];
+---
+
+<aside class="about-profile">
+    <img
+        src="/Profile.png"
+        alt="Portrait of Brian Llinás"
+        width="200"
+        height="200"
+    />
+
+    <h2>Brian Llinás</h2>
+
+    <p class="about-role">
+        Ph.D. Student · Computer Science
+        <br />
+        Old Dominion University
+    </p>
+
+    <p class="about-location">
+        Norfolk, Virginia · Graduate Research Assistant
+    </p>
+
+    <div class="profile-actions">
+        {
+            actions.map((action) => (
+                <a
+                    class={action.className}
+                    href={action.href}
+                    target={action.external ? "_blank" : undefined}
+                    rel={action.external ? "noopener noreferrer" : undefined}
+                >
+                    {action.label}
+                </a>
+            ))
+        }
+    </div>
+
+    <div class="profile-social">
+        {
+            socialLinks.map((link) => (
+                <a href={link.href} target="_blank" rel="noopener noreferrer">
+                    {link.label}
+                </a>
+            ))
+        }
+    </div>
+</aside>
