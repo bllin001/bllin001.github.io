@@ -1,0 +1,37 @@
+---
+const pathname = Astro.url.pathname;
+
+const navigation = [
+    { href: "/", label: "About Me" },
+    { href: "/publications", label: "Publications" },
+    { href: "/media", label: "Media & Outreach" },
+    { href: "/cv", label: "CV" },
+];
+
+function isActive(href: string) {
+    return href === "/" ? pathname === "/" : pathname.startsWith(href);
+}
+---
+
+<header class="site-header">
+    <div class="site-header__inner">
+        <a class="site-logo" href="/">Brian Llinás</a>
+
+        <nav class="site-nav" aria-label="Main navigation">
+            {
+                navigation.map((item) => (
+                    <a
+                        href={item.href}
+                        class:list={[
+                            "site-nav__link",
+                            { "site-nav__link--active": isActive(item.href) },
+                        ]}
+                        aria-current={isActive(item.href) ? "page" : undefined}
+                    >
+                        {item.label}
+                    </a>
+                ))
+            }
+        </nav>
+    </div>
+</header>

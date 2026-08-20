@@ -1,0 +1,131 @@
+---
+import type { Publication } from "../types/publication";
+
+interface Props {
+	publication: Publication;
+}
+
+const { publication } = Astro.props;
+
+const source =
+	publication.conference ||
+	publication.journal ||
+	publication.publisher;
+
+const doiUrl = publication.doi
+	? publication.doi.startsWith("http")
+		? publication.doi
+		: `https://doi.org/${publication.doi}`
+	: undefined;
+
+const doiLabel = publication.doi.replace(/^https?:\/\/(?:dx\.)?doi\.org\//i, "");
+
+const primaryUrl = publication.url || doiUrl;
+
+const displayType = publication.type.replace(
+	/^(?:Non-)?Peer-Reviewed\s+/i,
+	"",
+);
+
+const metadata = [
+	displayType,
+	publication.conference_long,
+	publication.publisher,
+	publication.journal,
+	publication.year,
+].filter(Boolean);
+
+const authors = publication.authors
+	.split(";")
+	.map((author) => author.trim());
+
+function isBrian(author: string) {
+	return /^Llin[aá]s, B\.?$/i.test(author);
+}
+---
+
+<article class="pub-card">
+	<header class="pub-card__header">
+		{source && <span class="pub-card__source">{source}</span>}
+
+		<div class="pub-card__badges">
+			<span class="pub-pill pub-pill--year">
+				{publication.year || "Unknown"}
+			</span>
+
+			<span class="pub-pill pub-pill--type">
+				{displayType}
+			</span>
+		</div>
+	</header>
+
+	<h3 class="pub-card__title">
+		{
+			primaryUrl ? (
+				<a
+					class="pub-title"
+					href={primaryUrl}
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					{publication.title}
+				</a>
+			) : (
+				publication.title
+			)
+		}
+	</h3>
+
+	<p class="pub-authors">
+		{
+			authors.map((author, index) => (
+				<>
+					{index > 0 && "; "}
+					{isBrian(author) ? <strong>{author}</strong> : author}
+				</>
+			))
+		}
+	</p>
+
+	<p class="pub-meta">
+		{metadata.join(" • ")}
+		{
+			doiUrl && (
+				<>
+					{" • DOI: "}
+					<a href={doiUrl} target="_blank" rel="noopener noreferrer">
+						{doiLabel}
+					</a>
+				</>
+			)
+		}
+	</p>
+
+	<div class="pub-links">
+		{
+			primaryUrl && (
+				<a
+					class="badge-link"
+					href={primaryUrl}
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					View Publication
+				</a>
+			)
+		}
+
+		{
+			publication.presentation && (
+				<a
+					class="badge-link badge-secondary"
+					href={publication.presentation}
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					Presentation
+				</a>
+			)
+		}
+	</div>
+</article>

@@ -1,0 +1,64 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const cvPath = "/CV_EN_Brian_Llinas.pdf";
+---
+
+<Layout
+	title="Curriculum Vitae | Brian Llinás"
+	description="Curriculum vitae of Brian Llinás, Ph.D. student and computer science researcher."
+>
+	<div class="cv-main">
+		<div class="cv-container">
+			<section class="cv-header">
+				<div>
+					<h1 id="cv-title">Curriculum Vitae</h1>
+					<p class="cv-subtitle">
+						Review the embedded CV or download a copy for offline
+						reference.
+					</p>
+				</div>
+
+				<a
+					class="btn btn-primary"
+					href={cvPath}
+					download
+				>
+					Download PDF
+				</a>
+			</section>
+
+			<section class="cv-viewer" aria-labelledby="cv-title">
+				<div class="cv-frame">
+					<object
+						data={cvPath}
+						type="application/pdf"
+						class="cv-embed"
+					>
+						<p>
+							Your browser doesn't support inline PDFs.
+							<a
+								href={cvPath}
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Open the CV in a new tab.
+							</a>
+						</p>
+					</object>
+				</div>
+
+				<p class="cv-note">
+					Need a separate window?
+					<a
+						href={cvPath}
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						Open the CV as a standalone PDF
+					</a>.
+				</p>
+			</section>
+		</div>
+	</div>
+</Layout>
