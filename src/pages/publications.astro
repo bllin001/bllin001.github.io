@@ -1,158 +1,80 @@
 ---
-import Papa from "papaparse";
+import ContentPage from "../components/ContentPage.astro";
+import PublicationCard from "../components/PublicationCard.astro";
 import Layout from "../layouts/Layout.astro";
 import publicationsCsv from "../data/publications.csv?raw";
-import type { Publication } from "../types/publication";
-import PublicationCard from "../components/PublicationCard.astro";
+import { preparePublicationPageData } from "../utils/publications";
 
-const result = Papa.parse<Publication>(publicationsCsv, {
-    header: true,
-    skipEmptyLines: true,
-});
-
-if (result.errors.length > 0) {
-    throw new Error(
-        `Could not parse publications.csv: ${result.errors[0].message}`,
-    );
-}
-
-const publications = result.data.sort(
-    (a, b) => Number(b.year || 0) - Number(a.year || 0),
-);
-
-const publicationsByYear = publications.reduce<Record<string, Publication[]>>(
-    (groups, publication) => {
-        const year = publication.year || "Unknown";
-
-        if (!groups[year]) {
-            groups[year] = [];
-        }
-
-        groups[year].push(publication);
-
-        return groups;
-    },
-    {},
-);
-
-const yearGroups = Object.entries(publicationsByYear).sort(
-	([yearA], [yearB]) => {
-		if (yearA === "Unknown") return 1;
-		if (yearB === "Unknown") return -1;
-
-		return Number(yearB) - Number(yearA);
-	},
-);
-
-const typeHeadings: Record<string, string> = {
-	"Peer-Reviewed Journal Article": "Journal Articles",
-	"Peer-Reviewed Conference Paper": "Conference Papers",
-	"Non-Peer-Reviewed Conference Presentation":
-		"Conference Presentations",
-};
-
-const typeOrder = [
-	"Peer-Reviewed Journal Article",
-	"Peer-Reviewed Conference Paper",
-	"Non-Peer-Reviewed Conference Presentation",
-];
-
-const publicationsByType = publications.reduce<Record<string, Publication[]>>(
-	(groups, publication) => {
-		if (!groups[publication.type]) {
-			groups[publication.type] = [];
-		}
-
-		groups[publication.type].push(publication);
-		return groups;
-	},
-	{},
-);
-
-const typeGroups = Object.entries(publicationsByType).sort(
-	([typeA], [typeB]) => {
-		const indexA = typeOrder.indexOf(typeA);
-		const indexB = typeOrder.indexOf(typeB);
-		const orderA = indexA === -1 ? Number.MAX_SAFE_INTEGER : indexA;
-		const orderB = indexB === -1 ? Number.MAX_SAFE_INTEGER : indexB;
-
-		return orderA - orderB || typeA.localeCompare(typeB);
-	},
-);
+const { yearGroups, typeGroups, typeHeadings } =
+	preparePublicationPageData(publicationsCsv);
 ---
 
 <Layout
     title="Publications | Brian Llinás"
     description="Academic publications by Brian Llinás."
 >
-    <div class="pubs-main">
-        <div class="pubs-container">
-            <h1 class="sr-only">Publications</h1>
+	<ContentPage>
+		<h1 class="sr-only">Publications</h1>
 
-            <div
-                class="publication-toggle"
-                role="group"
-                aria-label="Publication grouping"
-            >
-                <button
-                    class="toggle-btn active"
-                    type="button"
-                    data-group-button="year"
-                    aria-pressed="true"
-                >
-                    Group by Year
-                </button>
-                <button
-                    class="toggle-btn"
-                    type="button"
-                    data-group-button="type"
-                    aria-pressed="false"
-                >
-                    Group by Type
-                </button>
-            </div>
+		<div
+			class="publication-toggle"
+			role="group"
+			aria-label="Publication grouping"
+		>
+			<button
+				class="publication-toggle__button publication-toggle__button--active"
+				type="button"
+				data-group-button="year"
+				aria-pressed="true"
+			>
+				Group by Year
+			</button>
+			<button
+				class="publication-toggle__button"
+				type="button"
+				data-group-button="type"
+				aria-pressed="false"
+			>
+				Group by Type
+			</button>
+		</div>
 
-            <div data-group-panel="year">
-                {
-                    yearGroups.map(([year, publications]) => (
-                        <section class="pub-section">
-                            <h2>{year}</h2>
+		<div data-group-panel="year">
+			{
+				yearGroups.map(([year, publications]) => (
+					<section>
+						<h2>{year}</h2>
 
-                            <ol class="pub-list">
-                                {publications.map((publication) => (
-                                    <li>
-                                        <PublicationCard
-                                            publication={publication}
-                                        />
-                                    </li>
-                                ))}
-                            </ol>
-                        </section>
-                    ))
-                }
-            </div>
+						<ol class="publication-list">
+							{publications.map((publication) => (
+								<li>
+									<PublicationCard publication={publication} />
+								</li>
+							))}
+						</ol>
+					</section>
+				))
+			}
+		</div>
 
-            <div data-group-panel="type" hidden>
-                {
-                    typeGroups.map(([type, publications]) => (
-                    <section class="pub-section">
-                            <h2>{typeHeadings[type] || type}</h2>
+		<div data-group-panel="type" hidden>
+			{
+				typeGroups.map(([type, publications]) => (
+					<section>
+						<h2>{typeHeadings[type] || type}</h2>
 
-                        <ol class="pub-list">
-                            {publications.map((publication) => (
-                                <li>
-                                    <PublicationCard
-                                        publication={publication}
-                                    />
-                                </li>
-                            ))}
-                        </ol>
-                    </section>
-                    ))
-                }
-            </div>
-        </div>
-    </div>
+						<ol class="publication-list">
+							{publications.map((publication) => (
+								<li>
+									<PublicationCard publication={publication} />
+								</li>
+							))}
+						</ol>
+					</section>
+				))
+			}
+		</div>
+	</ContentPage>
 </Layout>
 
 <script>
@@ -169,7 +91,10 @@ const typeGroups = Object.entries(publicationsByType).sort(
 				const isActive =
 					currentButton.dataset.groupButton === selectedGroup;
 
-				currentButton.classList.toggle("active", isActive);
+				currentButton.classList.toggle(
+					"publication-toggle__button--active",
+					isActive,
+				);
 				currentButton.setAttribute("aria-pressed", String(isActive));
 			});
 
@@ -198,25 +123,33 @@ const typeGroups = Object.entries(publicationsByType).sort(
 		text-align: center;
 	}
 
-	.toggle-btn {
+	.publication-toggle__button {
 		padding: 10px 28px;
 		font: inherit;
 		font-weight: 600;
 		color: #22364a;
-		background: #fff;
+		background: var(--color-surface);
 		border: 1px solid #d0d9e4;
 		border-radius: 999px;
 		cursor: pointer;
 		transition: all 0.2s ease;
 	}
 
-	.toggle-btn + .toggle-btn {
+	.publication-toggle__button + .publication-toggle__button {
 		margin-left: 12px;
 	}
 
-	.toggle-btn.active {
-		color: #fff;
+	.publication-toggle__button--active {
+		color: var(--color-surface);
 		background: #22364a;
 		box-shadow: 0 12px 24px rgba(34, 54, 74, 0.25);
+	}
+
+	.publication-list {
+		display: grid;
+		padding: 0;
+		margin: 0;
+		list-style: none;
+		gap: 20px;
 	}
 </style>

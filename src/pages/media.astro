@@ -1,5 +1,6 @@
 ---
 import Papa from "papaparse";
+import ContentPage from "../components/ContentPage.astro";
 import Layout from "../layouts/Layout.astro";
 import MediaCard from "../components/MediaCard.astro";
 import mediaCsv from "../data/media.csv?raw";
@@ -42,34 +43,39 @@ const yearGroups = Object.entries(entriesByYear).sort(([yearA], [yearB]) => {
 	title="Media & Outreach | Brian Llinás"
 	description="Media, articles, and outreach by Brian Llinás."
 >
-	<div class="pubs-main">
-		<div class="pubs-container">
-			<section class="pub-section">
-				<h3>Media & Other Outreach</h3>
+	<ContentPage>
+		<section class="media-page__section">
+			<h1>Media & Other Outreach</h1>
 
-				{
-					yearGroups.map(([year, entries]) => (
-						<>
-							<h4 class="media-year">{year}</h4>
-							<div class="media-grid">
-								{entries.map((entry) => (
-									<MediaCard entry={entry} />
-								))}
-							</div>
-						</>
-					))
-				}
-			</section>
-		</div>
-	</div>
+			{
+				yearGroups.map(([year, entries]) => (
+					<>
+						<h2 class="media-page__year">{year}</h2>
+						<div class="media-page__grid">
+							{entries.map((entry) => (
+								<MediaCard entry={entry} />
+							))}
+						</div>
+					</>
+				))
+			}
+		</section>
+	</ContentPage>
 </Layout>
 
 <style>
-	.media-year {
+	.media-page__section h1 {
+		margin: 0 0 20px;
+		color: #22364a;
+		font-size: 1.45em;
+		letter-spacing: 0.01em;
+	}
+
+	.media-page__year {
 		margin-top: 2em;
 	}
 
-	.media-grid {
+	.media-page__grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 		gap: 28px;

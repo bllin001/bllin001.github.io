@@ -26,9 +26,11 @@ const { title, description = "Personal website of Brian Llinás" } = Astro.props
     </head>
 
     <body>
+        <a class="skip-link" href="#main-content">Skip to main content</a>
+
         <Header />
 
-        <main>
+        <main id="main-content" tabindex="-1">
             <slot />
         </main>
 
