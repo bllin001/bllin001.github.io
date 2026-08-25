@@ -1,0 +1,86 @@
+---
+import Papa from "papaparse";
+import ContentPage from "../components/ContentPage.astro";
+import Layout from "../layouts/Layout.astro";
+import MediaCard from "../components/MediaCard.astro";
+import mediaCsv from "../data/media.csv?raw";
+import type { MediaEntry } from "../types/media";
+
+const result = Papa.parse<MediaEntry>(mediaCsv, {
+	header: true,
+	skipEmptyLines: true,
+});
+
+const blockingErrors = result.errors.filter(
+	(error) => error.code !== "TooFewFields",
+);
+
+if (blockingErrors.length > 0) {
+	throw new Error(`Could not parse media.csv: ${blockingErrors[0].message}`);
+}
+
+const entries = result.data
+	.map((entry) => ({ ...entry, github: entry.github || "" }))
+	.sort((a, b) => b.date.localeCompare(a.date));
+
+const entriesByYear = entries.reduce<Record<string, MediaEntry[]>>(
+	(groups, entry) => {
+		const year = entry.date.slice(0, 4) || "Unknown";
+		(groups[year] ??= []).push(entry);
+		return groups;
+	},
+	{},
+);
+
+const yearGroups = Object.entries(entriesByYear).sort(([yearA], [yearB]) => {
+	if (yearA === "Unknown") return 1;
+	if (yearB === "Unknown") return -1;
+	return Number(yearB) - Number(yearA);
+});
+---
+
+<Layout
+	title="Media & Outreach | Brian Llinás"
+	description="Media, articles, and outreach by Brian Llinás."
+>
+	<ContentPage>
+		<section class="media-page__section">
+			<h1>Media & Other Outreach</h1>
+
+			{
+				yearGroups.map(([year, entries]) => (
+					<>
+						<h2 class="media-page__year">{year}</h2>
+						<div class="media-page__grid">
+							{entries.map((entry) => (
+								<MediaCard entry={entry} />
+							))}
+						</div>
+					</>
+				))
+			}
+		</section>
+	</ContentPage>
+</Layout>
+
+<style>
+	.media-page__section h1 {
+		margin: 0 0 20px;
+		color: #22364a;
+		font-size: 1.45em;
+		letter-spacing: 0.01em;
+	}
+
+	.media-page__year {
+		margin-top: 2em;
+	}
+
+	.media-page__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 28px;
+		padding: 0;
+		margin-top: 24px;
+		list-style: none;
+	}
+</style>

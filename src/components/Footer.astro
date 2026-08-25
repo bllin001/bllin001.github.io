@@ -1,0 +1,118 @@
+---
+const currentYear = new Date().getFullYear();
+
+const siteLinks = [
+    { href: "/", label: "About" },
+    { href: "/publications", label: "Publications" },
+    { href: "/media", label: "Media & Outreach" },
+    { href: "/cv", label: "CV" },
+];
+
+const socialLinks = [
+    {
+        href: "https://www.linkedin.com/in/brian-jesus-llinas-marimon/",
+        label: "LinkedIn",
+    },
+    {
+        href: "https://github.com/bllin001",
+        label: "GitHub",
+    },
+];
+---
+
+<footer class="site-footer">
+    <div class="site-footer__top">
+        <div>
+            <strong>© 2024–{currentYear} Brian Llinás</strong>
+            <br />
+            <a href="mailto:bllin001@odu.edu">bllin001@odu.edu</a>
+        </div>
+
+        <nav class="site-footer__links" aria-label="Footer navigation">
+            {siteLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+
+            {
+                socialLinks.map((link) => (
+                    <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {link.label}
+                    </a>
+                ))
+            }
+        </nav>
+    </div>
+
+    <div class="site-footer__bottom">
+        <div class="site-footer__bottom-inner">
+            <span>Site maintained by Brian Llinás.</span>
+            <span>
+                Template available on{" "}
+                <a
+                    href="https://github.com/bllin001/bllin001.github.io"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    GitHub
+                </a>.
+            </span>
+        </div>
+    </div>
+</footer>
+
+<style>
+    .site-footer {
+        color: var(--color-surface);
+        background: var(--color-primary);
+    }
+
+    .site-footer__top {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: space-between;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 24px 16px;
+        gap: 24px;
+    }
+
+    .site-footer__links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .site-footer__links a {
+        color: var(--color-surface);
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    .site-footer__links a:hover {
+        text-decoration: underline;
+    }
+
+    .site-footer__bottom {
+        background: var(--color-primary-dark);
+    }
+
+    .site-footer__bottom-inner {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 12px 16px;
+        color: var(--color-footer-text);
+        font-size: 0.85em;
+        gap: 12px;
+    }
+
+    .site-footer__bottom a {
+        color: var(--color-footer-text);
+        text-decoration: underline;
+    }
+</style>

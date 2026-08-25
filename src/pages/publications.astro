@@ -1,0 +1,155 @@
+---
+import ContentPage from "../components/ContentPage.astro";
+import PublicationCard from "../components/PublicationCard.astro";
+import Layout from "../layouts/Layout.astro";
+import publicationsCsv from "../data/publications.csv?raw";
+import { preparePublicationPageData } from "../utils/publications";
+
+const { yearGroups, typeGroups, typeHeadings } =
+	preparePublicationPageData(publicationsCsv);
+---
+
+<Layout
+    title="Publications | Brian Llinás"
+    description="Academic publications by Brian Llinás."
+>
+	<ContentPage>
+		<h1 class="sr-only">Publications</h1>
+
+		<div
+			class="publication-toggle"
+			role="group"
+			aria-label="Publication grouping"
+		>
+			<button
+				class="publication-toggle__button publication-toggle__button--active"
+				type="button"
+				data-group-button="year"
+				aria-pressed="true"
+			>
+				Group by Year
+			</button>
+			<button
+				class="publication-toggle__button"
+				type="button"
+				data-group-button="type"
+				aria-pressed="false"
+			>
+				Group by Type
+			</button>
+		</div>
+
+		<div data-group-panel="year">
+			{
+				yearGroups.map(([year, publications]) => (
+					<section>
+						<h2>{year}</h2>
+
+						<ol class="publication-list">
+							{publications.map((publication) => (
+								<li>
+									<PublicationCard publication={publication} />
+								</li>
+							))}
+						</ol>
+					</section>
+				))
+			}
+		</div>
+
+		<div data-group-panel="type" hidden>
+			{
+				typeGroups.map(([type, publications]) => (
+					<section>
+						<h2>{typeHeadings[type] || type}</h2>
+
+						<ol class="publication-list">
+							{publications.map((publication) => (
+								<li>
+									<PublicationCard publication={publication} />
+								</li>
+							))}
+						</ol>
+					</section>
+				))
+			}
+		</div>
+	</ContentPage>
+</Layout>
+
+<script>
+	const buttons = document.querySelectorAll<HTMLButtonElement>(
+		"[data-group-button]",
+	);
+	const panels = document.querySelectorAll<HTMLElement>("[data-group-panel]");
+
+	buttons.forEach((button) => {
+		button.addEventListener("click", () => {
+			const selectedGroup = button.dataset.groupButton;
+
+			buttons.forEach((currentButton) => {
+				const isActive =
+					currentButton.dataset.groupButton === selectedGroup;
+
+				currentButton.classList.toggle(
+					"publication-toggle__button--active",
+					isActive,
+				);
+				currentButton.setAttribute("aria-pressed", String(isActive));
+			});
+
+			panels.forEach((panel) => {
+				panel.hidden = panel.dataset.groupPanel !== selectedGroup;
+			});
+		});
+	});
+</script>
+
+<style>
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	.publication-toggle {
+		margin: 24px 0 16px;
+		text-align: center;
+	}
+
+	.publication-toggle__button {
+		padding: 10px 28px;
+		font: inherit;
+		font-weight: 600;
+		color: #22364a;
+		background: var(--color-surface);
+		border: 1px solid #d0d9e4;
+		border-radius: 999px;
+		cursor: pointer;
+		transition: all 0.2s ease;
+	}
+
+	.publication-toggle__button + .publication-toggle__button {
+		margin-left: 12px;
+	}
+
+	.publication-toggle__button--active {
+		color: var(--color-surface);
+		background: #22364a;
+		box-shadow: 0 12px 24px rgba(34, 54, 74, 0.25);
+	}
+
+	.publication-list {
+		display: grid;
+		padding: 0;
+		margin: 0;
+		list-style: none;
+		gap: 20px;
+	}
+</style>

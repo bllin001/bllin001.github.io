@@ -1,0 +1,245 @@
+---
+import type { Publication } from "../types/publication";
+
+interface Props {
+	publication: Publication;
+}
+
+const { publication } = Astro.props;
+
+const source =
+	publication.conference ||
+	publication.journal ||
+	publication.publisher;
+
+const doiUrl = publication.doi
+	? publication.doi.startsWith("http")
+		? publication.doi
+		: `https://doi.org/${publication.doi}`
+	: undefined;
+
+const doiLabel = publication.doi.replace(/^https?:\/\/(?:dx\.)?doi\.org\//i, "");
+
+const primaryUrl = publication.url || doiUrl;
+
+const displayType = publication.type.replace(
+	/^(?:Non-)?Peer-Reviewed\s+/i,
+	"",
+);
+
+const metadata = [
+	displayType,
+	publication.conference_long,
+	publication.publisher,
+	publication.journal,
+	publication.year,
+].filter(Boolean);
+
+const authors = publication.authors
+	.split(";")
+	.map((author) => author.trim());
+
+function isBrian(author: string) {
+	return /^Llin[aá]s, B\.?$/i.test(author);
+}
+---
+
+<article class="publication-card">
+	<header class="publication-card__header">
+		{source && <span class="publication-card__source">{source}</span>}
+
+		<div class="publication-card__tags">
+			<span class="publication-card__tag publication-card__tag--year">
+				{publication.year || "Unknown"}
+			</span>
+
+			<span class="publication-card__tag publication-card__tag--type">
+				{displayType}
+			</span>
+		</div>
+	</header>
+
+	<h3 class="publication-card__title">
+		{
+			primaryUrl ? (
+				<a
+					class="publication-card__title-link"
+					href={primaryUrl}
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					{publication.title}
+				</a>
+			) : (
+				publication.title
+			)
+		}
+	</h3>
+
+	<p class="publication-card__authors">
+		{
+			authors.map((author, index) => (
+				<>
+					{index > 0 && "; "}
+					{isBrian(author) ? <strong>{author}</strong> : author}
+				</>
+			))
+		}
+	</p>
+
+	<p class="publication-card__metadata">
+		{metadata.join(" • ")}
+		{
+			doiUrl && (
+				<>
+					{" • DOI: "}
+					<a href={doiUrl} target="_blank" rel="noopener noreferrer">
+						{doiLabel}
+					</a>
+				</>
+			)
+		}
+	</p>
+
+	<div class="publication-card__actions">
+		{
+			primaryUrl && (
+				<a
+					class="action-link"
+					href={primaryUrl}
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					View Publication
+				</a>
+			)
+		}
+
+		{
+			publication.presentation && (
+				<a
+					class="action-link action-link--secondary"
+					href={publication.presentation}
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					Presentation
+				</a>
+			)
+		}
+	</div>
+</article>
+
+<style is:global>
+	.publication-card {
+		display: flex;
+		flex-direction: column;
+		padding: 26px 28px;
+		background: var(--color-surface);
+		border: 1px solid rgba(23, 68, 107, 0.08);
+		border-radius: 24px;
+		box-shadow: 0 20px 45px rgba(23, 68, 107, 0.12);
+		gap: 16px;
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.publication-card:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 26px 56px rgba(23, 68, 107, 0.18);
+	}
+
+	.publication-card__header {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+	}
+
+	.publication-card__source {
+		color: var(--color-primary);
+		font-size: 0.82em;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+	}
+
+	.publication-card__tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+
+	.publication-card__tag {
+		display: inline-flex;
+		align-items: center;
+		padding: 6px 12px;
+		color: var(--color-primary);
+		font-size: 0.82em;
+		font-weight: 600;
+		letter-spacing: 0.03em;
+		text-transform: uppercase;
+		background: var(--color-soft-blue);
+		border-radius: 999px;
+		gap: 6px;
+	}
+
+	.publication-card__tag--year {
+		color: var(--color-surface);
+		background: var(--color-primary);
+	}
+
+	.publication-card__tag--type {
+		color: #22364a;
+		background: var(--color-accent);
+	}
+
+	.publication-card__title {
+		margin: 0;
+		color: var(--color-text-strong);
+		font-size: 1.18em;
+		line-height: 1.35;
+	}
+
+	.publication-card__title-link {
+		color: inherit;
+		text-decoration: none;
+		transition: color 0.2s ease;
+	}
+
+	.publication-card__title-link:hover {
+		color: #0f2a49;
+		text-decoration: underline;
+	}
+
+	.publication-card__authors {
+		margin: 0;
+		color: var(--color-text);
+		font-size: 0.98em;
+		line-height: 1.6;
+	}
+
+	.publication-card__metadata {
+		margin: 0;
+		color: var(--color-text-muted);
+		font-size: 0.95em;
+		line-height: 1.5;
+	}
+
+	.publication-card__metadata a {
+		color: var(--color-primary);
+		font-weight: 600;
+	}
+
+	.publication-card__actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+
+	@media (max-width: 720px) {
+		.publication-card {
+			padding: 18px;
+		}
+	}
+</style>

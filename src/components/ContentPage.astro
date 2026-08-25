@@ -1,0 +1,20 @@
+<div class="content-page">
+	<div class="content-page__inner">
+		<slot />
+	</div>
+</div>
+
+<style>
+	.content-page {
+		padding: 48px 16px 72px;
+		background: var(--color-background);
+	}
+
+	.content-page__inner {
+		display: flex;
+		flex-direction: column;
+		max-width: 1050px;
+		margin: 0 auto;
+		gap: 40px;
+	}
+</style>
